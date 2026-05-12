@@ -24,22 +24,19 @@ public class BingoGameService
         _jsRuntime = jsRuntime;
     }
 
-    public async Task InitializeAsync()
-    {
-        await LoadGameStateAsync();
-    }
+    public Task InitializeAsync() => LoadGameStateAsync();
 
-    public void StartGame()
+    public async Task StartGameAsync()
     {
         Board = BingoLogicService.GenerateBoard();
         WinningLine = null;
         CurrentGameState = GameState.Playing;
         ShowBingoModal = false;
-        _ = SaveGameStateAsync(); // Fire and forget
         NotifyStateChanged();
+        await SaveGameStateAsync();
     }
 
-    public void HandleSquareClick(int squareId)
+    public async Task HandleSquareClickAsync(int squareId)
     {
         Board = BingoLogicService.ToggleSquare(Board, squareId);
 
@@ -55,18 +52,18 @@ public class BingoGameService
             }
         }
 
-        _ = SaveGameStateAsync(); // Fire and forget
         NotifyStateChanged();
+        await SaveGameStateAsync();
     }
 
-    public void ResetGame()
+    public async Task ResetGameAsync()
     {
         CurrentGameState = GameState.Start;
         Board = new();
         WinningLine = null;
         ShowBingoModal = false;
-        _ = SaveGameStateAsync(); // Fire and forget
         NotifyStateChanged();
+        await SaveGameStateAsync();
     }
 
     public void DismissModal()
