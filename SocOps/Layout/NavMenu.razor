@@ -1,36 +1,45 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">SocOps</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
+﻿<div class="arcade-nav-frame">
+    <div class="arcade-nav-head">
+        <a class="arcade-brand" href="">
+            <span class="arcade-brand-kicker">Workshop</span>
+            <span class="arcade-brand-title">SOC OPS</span>
+        </a>
+
+        <button
+            title="Navigation menu"
+            class="arcade-toggle"
+            @onclick="ToggleNavMenu"
+            aria-expanded="@(!collapseNavMenu)">
+            MENU
         </button>
     </div>
-</div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+    <div class="@NavMenuCssClass arcade-panel" @onclick="ToggleNavMenu">
+        <p class="arcade-caption">Navigation</p>
+
+        <nav class="arcade-links">
+            <NavLink class="arcade-link" href="" Match="NavLinkMatch.All">
+                <span class="arcade-index">01</span>
+                <span>Home</span>
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+
+            <NavLink class="arcade-link" href="counter">
+                <span class="arcade-index">02</span>
+                <span>Counter</span>
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+
+            <NavLink class="arcade-link" href="weather">
+                <span class="arcade-index">03</span>
+                <span>Weather</span>
             </NavLink>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "is-collapsed" : string.Empty;
 
     private void ToggleNavMenu()
     {
